@@ -1,5 +1,5 @@
-package Models;
-import Enum.Gender;
+package be.abis.MavenSandwich.Models;
+import be.abis.MavenSandwich.Enum.Gender;
 
 public class Person {
     String firstName;

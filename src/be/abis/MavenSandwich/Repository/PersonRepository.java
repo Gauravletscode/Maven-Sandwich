@@ -12,7 +12,8 @@ public class PersonRepository {
         personList.add(new Person("Lynch","David", Gender.MALE ));
         personList.add(new Person("EastWood","Clint", Gender.MALE ));
         personList.add(new Person("Taylor","Elisabeth", Gender.FEMALE ));
-    }
+
+        }
 
 
 }
