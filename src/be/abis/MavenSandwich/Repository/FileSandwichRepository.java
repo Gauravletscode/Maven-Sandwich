@@ -51,6 +51,15 @@ public Sandwich parseSandwich(String s){
 
 }
 
+    public void addSandwiche(Sandwich s) {
+        if (!sandwichesAvailable.contains(s)) {
+            sandwichesAvailable.add(s);
+        }
+
+
+
+    }
+
 
 
     }
