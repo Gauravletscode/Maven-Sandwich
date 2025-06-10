@@ -1,4 +1,12 @@
 package be.abis.MavenSandwich.Repository;
 
-public class OrdersRepository {
+import be.abis.MavenSandwich.Models.Order;
+
+import java.util.List;
+
+public interface OrdersRepository {
+    void addOrder(Order order);
+    List<Order> findAllOrders();
+
+
 }
