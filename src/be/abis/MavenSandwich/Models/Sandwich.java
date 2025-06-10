@@ -1,5 +1,6 @@
-package Models;
-import Enum.SandwichBreadType;
+package be.abis.MavenSandwich.Models;
+
+import be.abis.MavenSandwich.Enum.SandwichBreadType;
 
 
 public class Sandwich {

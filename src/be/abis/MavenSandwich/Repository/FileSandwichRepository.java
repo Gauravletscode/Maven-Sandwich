@@ -1,7 +1,8 @@
-package Repository;
+package be.abis.MavenSandwich.Repository;
 
-import Models.Person;
-import Models.Sandwich;
+
+
+import be.abis.MavenSandwich.Models.Sandwich;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

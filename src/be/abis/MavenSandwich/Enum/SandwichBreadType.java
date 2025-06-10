@@ -1,6 +1,6 @@
-package Enum;
+package be.abis.MavenSandwich.Enum;
 
-public enum sandwichBreadType {
+public enum SandwichBreadType {
         White,
         Brown,
     }
