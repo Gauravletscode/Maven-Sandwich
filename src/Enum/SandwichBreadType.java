@@ -1,6 +1,6 @@
 package Enum;
 
-public enum sandwichBreadType {
+public enum SandwichBreadType {
         White,
         Brown,
     }
