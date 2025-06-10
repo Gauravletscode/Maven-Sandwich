@@ -13,6 +13,9 @@ public class Sandwich {
         this.sandwichBreadType = sandwichBreadType;
     }
 
+    public Sandwich(String sandwichName) {
+        this.sandwichName = sandwichName;
+    }
 
     public String getSandwichName() {
         return sandwichName;
@@ -27,7 +30,7 @@ public class Sandwich {
         return "Sandwich{" +
                 "sandwichName='" + sandwichName + '\'' +
                 ", salade=" + salade +
-                ", breadType=" + breadType +
+                ", breadType=" + sandwichBreadType +
                 '}';
     }
 }
