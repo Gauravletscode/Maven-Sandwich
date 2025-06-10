@@ -1,6 +1,7 @@
-package Repository;
+package be.abis.MavenSandwich.Repository;
 
-import Models.Sandwich;
+import be.abis.MavenSandwich.Models.Sandwich;
+import be.abis.MavenSandwich.Repository.SandwichRepository;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,13 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
 public class FileSandwichRepository implements SandwichRepository {
     private List<Sandwich> sandwiches = new ArrayList<>();
-
-public void findAllSandwiches() throws FileNotFoundException {
-    readSandwichFile();
-}
 
 
 private void readSandwichFile() throws FileNotFoundException {
@@ -37,8 +33,4 @@ public Sandwich parseSandwich(String s){
         return newSandwich;
     }
 }
-
-
-*/
-
 
