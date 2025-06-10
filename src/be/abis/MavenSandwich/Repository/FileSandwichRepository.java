@@ -46,7 +46,6 @@ public Sandwich parseSandwich(String s){
     }
 
     public void printAllSandwiches() {
-
         sandwichesAvailable.stream().forEach(System.out::println);
 
 }
