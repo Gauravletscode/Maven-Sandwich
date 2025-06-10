@@ -1,12 +1,11 @@
-package be.abis.MavenSandwich.Models;
-
-import be.abis.MavenSandwich.Enum.Gender;
+package Models;
+import Enum.Gender;
 
 public class Person {
-    static String firstName;
-    static String lastName;
-    public static int personNumber = 1;
-    Gender gender;
+    String firstName;
+    String lastName;
+    int personNumber;
+    private Gender gender;
 
     public Person(String lastName, String firstName, Gender gender) {
         this.lastName = lastName;
@@ -30,6 +29,13 @@ public class Person {
         this.lastName = lastName;
     }
 
+    public Gender getGender() {
+        return this.gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
     public void orderSandwich(){
 
     }
