@@ -25,5 +25,14 @@ public class Sandwich {
     public void setSandwichName(String sandwichName) {
         this.sandwichName = sandwichName;
     }
+
+    @Override
+    public String toString() {
+        return "Sandwich{" +
+                "sandwichName='" + sandwichName + '\'' +
+                ", salade=" + salade +
+                ", breadType=" + breadType +
+                '}';
+    }
 }
 
