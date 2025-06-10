@@ -14,6 +14,4 @@ public class PersonRepository {
         personList.add(new Person("Taylor","Elisabeth", Gender.FEMALE ));
 
         }
-
-
 }

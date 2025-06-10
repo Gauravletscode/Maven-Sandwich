@@ -2,21 +2,17 @@ package be.abis.MavenSandwich.Models;
 
 import be.abis.MavenSandwich.Enum.SandwichBreadType;
 
-
 public class Sandwich {
     private String sandwichName;
     private boolean salade;
-    private Enum breadType;
+    private Enum sandwichBreadType;
 
-    public Sandwich (String sandwichName, boolean salade, SandwichBreadType breadType) {
+    public Sandwich (String sandwichName, boolean salade, SandwichBreadType sandwichBreadType) {
         this.sandwichName = sandwichName;
         this.salade = salade;
-        this.breadType = breadType;
+        this.sandwichBreadType = sandwichBreadType;
     }
 
-    public Sandwich(String sandwichName) {
-        this.sandwichName = sandwichName;
-    }
 
     public String getSandwichName() {
         return sandwichName;
