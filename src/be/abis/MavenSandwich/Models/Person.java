@@ -13,6 +13,11 @@ public class Person implements Instructor,Student{
         this.gender = gender;
     }
 
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -27,6 +32,14 @@ public class Person implements Instructor,Student{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getPersonNumber() {
+        return personNumber;
+    }
+
+    public void setPersonNumber(int personNumber) {
+        this.personNumber = personNumber;
     }
 
     public Gender getGender() {
