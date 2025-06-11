@@ -13,11 +13,11 @@ public class TestOrders {
         Person p1 = new Person("Kode","Harshad", Gender.MALE);
         //replace sanwich creation objects by 
         Sandwich s1 = new Sandwich("Salade de crabe",true, SandwichBreadType.Brown);
-        Order order1= new Order("10/06/2025",p1,s1);
+        Order order1= new Order(p1,s1);
         order1.printInfo();
 
         OrdersRepository or = new MemoryOrdersRepository() ;
-        or.addOrder(new Order("10/06/2025",new Person("Tim","David",Gender.MALE),new Sandwich("Salade de poulet",false,SandwichBreadType.Brown)));
+        or.addOrder(new Order(new Person("Tim","David",Gender.MALE),new Sandwich("Salade de poulet",false,SandwichBreadType.Brown)));
 
 
     }
