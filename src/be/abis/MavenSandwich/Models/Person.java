@@ -1,16 +1,42 @@
 package be.abis.MavenSandwich.Models;
 import be.abis.MavenSandwich.Enum.Gender;
 
-public class Person implements Instructor,Student{
+public class Person {
     String firstName;
     String lastName;
-    int personNumber;
+    int personNumber=1;
     private Gender gender;
 
     public Person(String lastName, String firstName, Gender gender) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.gender = gender;
+        personNumber++;
+    }
+    public Person(String lastName,String firstName){
+        this.lastName=lastName;
+        this.firstName=firstName;
+    }
+    public void addPerson(Person p){
+     addPerson(p);
+    }
+
+    public int getPersonNumber() {
+        return personNumber;
+    }
+
+    public void setPersonNumber(int personNumber) {
+        this.personNumber = personNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", personNumber=" + personNumber +
+                ", gender=" + gender +
+                '}';
     }
 
     public String getFirstName() {
@@ -40,13 +66,5 @@ public class Person implements Instructor,Student{
 
     }
 
-    @Override
-    public void teachCourse() {
 
-    }
-
-    @Override
-    public void attendCourse() {
-
-    }
 }
