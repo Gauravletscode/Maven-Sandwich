@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 public class TestSandwichRepo {
     public static void main(String[] args) throws FileNotFoundException {
         SandwichRepository sr = new FileSandwichRepository();
-        ((FileSandwichRepository)sr).printAllSandwiches();
+//        ((FileSandwichRepository)sr).printAllSandwiches();
 
     }
 }

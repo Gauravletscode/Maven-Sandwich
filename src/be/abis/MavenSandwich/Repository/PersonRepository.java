@@ -42,7 +42,7 @@ public class PersonRepository {
                 .findFirst()
                 .orElseThrow(()->new PersonNotFoundException("Person not found"));
     }
-    public Person findByLastName(String lastName){
+    public Person findByLastName(String lastName) throws PersonNotFoundException {
         return personList.stream()
                 .filter(p->p.getLastName().equalsIgnoreCase(lastName))
                 .findFirst()

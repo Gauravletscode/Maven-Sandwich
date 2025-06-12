@@ -18,8 +18,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.util.JsonUtils;
 
 public class FileSandwichRepository implements SandwichRepository {
     private List<Sandwich> sandwichesAvailable = new ArrayList<>();
@@ -46,7 +49,7 @@ public class FileSandwichRepository implements SandwichRepository {
 
     public Sandwich parseSandwich(String s) {
         String[] tokens = s.split(";");
-        Sandwich newSandwich = new Sandwich(tokens[0],Double.parseDouble(tokens[1]));
+        Sandwich newSandwich = new Sandwich(tokens[0],Double.parseDouble(tokens[1]),tokens[2]);
         return newSandwich;
     }
 
@@ -54,7 +57,8 @@ public class FileSandwichRepository implements SandwichRepository {
         sandwichesOrdered.add(s);
     }
 
-    public void printAllSandwiches() {
+    public void printMenu() {
+        sandwichesAvailable.sort(Comparator.comparing(Sandwich::getSandwichType));
         System.out.println("-".repeat(50));
         System.out.format("%-25s\n","Maven Sandwich");
         System.out.println("-".repeat(50));
@@ -68,8 +72,8 @@ public class FileSandwichRepository implements SandwichRepository {
     }
 
 
-    public void addSandwichToAvailabeList(String sname , double price) {
-        Sandwich s = new Sandwich(sname,price);
+    public void addSandwichToAvailabeList(String sname , double price,String type) {
+        Sandwich s = new Sandwich(sname,price,type);
         if (!sandwichesAvailable.contains(s)) {
             Path path = Paths.get("C:\\Users\\Duser\\IdeaProjects\\Maven Sandwiches\\src\\sandwichesavailable.csv");
             try (BufferedWriter writer =
