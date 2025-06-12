@@ -13,13 +13,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
+
 
 public class FileOrdersRepository implements OrdersRepository{
 //C:\Users\Duser\IdeaProjects\Maven-Sandwich\src
@@ -93,7 +100,22 @@ public class FileOrdersRepository implements OrdersRepository{
             return fileOrderList;
         }
 
+    public void printTodayOrder() throws FileNotFoundException {
+            PrintWriter writer = new PrintWriter(new File("Todayorder.csv"));
+            writer.println("-".repeat(50));
+            writer.printf("%40s%n","Sandwich Order");
+            writer.println("-".repeat(50));
+            writer.printf("%-40s%-30s%-15s%-15s%n","Sandwich Name","Salade","Bread Type","Name of Student");
+           fileOrderList.stream().filter(fo-> fo.getOrderDate().equals(LocalDate.now()));
+            for(Order o: fileOrderList ) {
+                writer.printf("%-40S%-30s%-15s%n", o.getSandwich().getSandwichName(),
+                                                   o.getSandwich().isSalade(),
+                                                   o.getSandwich().getSandwichBreadType(),
+                                                   o.getPerson().getFirstName());
+            }
+            writer.close();
+        }
 
+    }
 
-}
 

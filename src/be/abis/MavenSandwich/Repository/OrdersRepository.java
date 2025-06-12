@@ -3,6 +3,7 @@ package be.abis.MavenSandwich.Repository;
 import be.abis.MavenSandwich.Exceptions.TooManyOrderedException;
 import be.abis.MavenSandwich.Models.Order;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public interface OrdersRepository {
     void addOrder(Order order) throws TooManyOrderedException;
     List<Order> findAllOrders() throws IOException, Exception;
+    void printTodayOrder() throws FileNotFoundException;
 
     static String formatOrder(Order o) {
         StringBuilder sb = new StringBuilder("");

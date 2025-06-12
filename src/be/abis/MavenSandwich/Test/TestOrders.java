@@ -10,6 +10,7 @@ import be.abis.MavenSandwich.Repository.MemoryOrdersRepository;
 import be.abis.MavenSandwich.Repository.OrdersRepository;
 
 public class TestOrders {
+
     public static void main(String[] args) {
         Person p1 = new Person("Kode","Harshad", Gender.MALE);
         //replace sandwich creation objects by find sandwich
@@ -33,9 +34,13 @@ public class TestOrders {
         System.out.println("\nAll orders:");
         try {
             System.out.println(or.findAllOrders());
+            or.printTodayOrder();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+
+
 
 
     }
