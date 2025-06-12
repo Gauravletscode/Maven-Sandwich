@@ -12,8 +12,7 @@ import be.abis.MavenSandwich.Repository.OrdersRepository;
 public class TestOrders {
     public static void main(String[] args) throws Exception {
         FileOrdersRepository fo = new FileOrdersRepository();
+        fo.printStatics();
         fo.printTodayOrder();
-
-
     }
 }
