@@ -2,6 +2,7 @@ package be.abis.MavenSandwich.Repository;
 
 import be.abis.MavenSandwich.Models.Order;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,5 +21,10 @@ public class MemoryOrdersRepository implements OrdersRepository{
     @Override
     public List<Order> findAllOrders() {
         return orders;
+    }
+
+    @Override
+    public void printTodayOrder() throws FileNotFoundException {
+
     }
 }

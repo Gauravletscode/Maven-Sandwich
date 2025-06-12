@@ -22,6 +22,14 @@ public class PersonRepository {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "PersonRepository{" +
+                "personList=" + personList +
+                '}';
+    }
+
     public Person findByPersonNumber(int number) throws PersonNotFoundException {
         return personList.stream()
                 .filter(p->p.getPersonNumber()==number)
