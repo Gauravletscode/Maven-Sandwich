@@ -40,6 +40,7 @@ public class FileSandwichRepository implements SandwichRepository {
         try (BufferedReader reader = new BufferedReader(fr)) {
             String currentLine = null;
             while ((currentLine = reader.readLine()) != null) {
+                System.out.println(currentLine);
                 sandwichesAvailable.add(parseSandwich(currentLine));
             }
         } catch (IOException e) {

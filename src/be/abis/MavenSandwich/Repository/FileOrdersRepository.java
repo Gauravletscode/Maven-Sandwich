@@ -59,9 +59,9 @@ public class FileOrdersRepository implements OrdersRepository{
         String[] tokens = s.split(";");
         Sandwich sandwich = new Sandwich(tokens[5]);
         Person person = new Person(tokens[2],tokens[3]);
-        if(tokens[4] == "MALE") { person.setGender(Gender.MALE);}
-        if(tokens[6] == "yes") {sandwich.setSalade(true); } else { sandwich.setSalade(false);}
-        if(tokens[7] == "Brown") { sandwich.setSandwichBreadType(SandwichBreadType.Brown);}
+        if(tokens[4].equalsIgnoreCase("Male")){ person.setGender(Gender.MALE);} else {person.setGender(Gender.FEMALE);}
+        if(tokens[6].equalsIgnoreCase("Yes")) {sandwich.setSalade(true); } else { sandwich.setSalade(false);}
+        if(tokens[7].equalsIgnoreCase("Brown")) { sandwich.setSandwichBreadType(SandwichBreadType.Brown);}else {sandwich.setSandwichBreadType(SandwichBreadType.White);}
         sandwich.setSandwichPrice(Double.parseDouble(tokens[8]));
 
         Order order = new Order(person,sandwich);
@@ -82,7 +82,7 @@ public class FileOrdersRepository implements OrdersRepository{
                 .count();
 
 
-        if (foundCount > 1) throw new TooManyOrderedException("already 2 ordered for: "+ order.getPerson().getLastName() + " " + order.getPerson().getFirstName());
+        if (foundCount > 1) throw new TooManyOrderedException("already 2 sandwich ordered for: "+ order.getPerson().getLastName() + " " + order.getPerson().getFirstName());
         else this.writeOrderFile(order);
 
 
@@ -103,23 +103,78 @@ public class FileOrdersRepository implements OrdersRepository{
     public List<Order> findAllOrders() throws Exception {
             return fileOrderList;
         }
-
     public void printTodayOrder() throws FileNotFoundException {
-            PrintWriter writer = new PrintWriter(new File("Todayorder.csv"));
-            writer.println("-".repeat(50));
-            writer.printf("%40s%n","Sandwich Order");
-            writer.println("-".repeat(50));
-            writer.printf("%-40s%-30s%-15s%-15s%n","Sandwich Name","Salade","Bread Type","Name of Student");
-           fileOrderList.stream().filter(fo-> fo.getOrderDate().equals(LocalDate.now()));
-            for(Order o: fileOrderList ) {
-                writer.printf("%-40S%-30s%-15s%n", o.getSandwich().getSandwichName(),
-                                                   o.getSandwich().isSalade(),
-                                                   o.getSandwich().getSandwichBreadType(),
-                                                   o.getPerson().getFirstName());
-            }
-            writer.close();
+        PrintWriter writer = new PrintWriter(new File("Todayorder.csv"));
+        writer.println("-".repeat(50));
+        writer.printf("%40s%n","Sandwich Order");
+        writer.println("-".repeat(50));
+        writer.printf("%-40s%-30s%-15s%-15s%n","Sandwich Name","Salade","Bread Type","Name of Student");
+        List<Order> fileOrderListFiltered = new ArrayList<>();
+        fileOrderListFiltered = fileOrderList.stream().filter(fo-> fo.getOrderDate().equals(LocalDate.now())).toList();
+        for(Order o: fileOrderListFiltered ) {
+            writer.printf("%-40S%-30s%-15s%-15s%n", o.getSandwich().getSandwichName(),
+                    o.getSandwich().isSalade()?"Yes":"No",
+                    o.getSandwich().getSandwichBreadType(),
+                    o.getPerson().getFirstName());
         }
-
+        writer.close();
     }
+
+    public void printStatics() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(new File("Statsfile.csv"));
+        writer.println("-".repeat(50));
+        writer.printf("%40s%n","Sandwich Statics");
+        writer.println("-".repeat(50));
+//        writer.printf("%-40s%-30s%n","Sandwich Name","Count");
+        Map<String, Map<String,Long>> m1 = fileOrderList.stream()
+                .collect(Collectors.groupingBy(p -> p.getSandwich().getSandwichName(),
+                        Collectors.groupingBy(p -> p.getSandwich().getSandwichBreadType().toString(),
+                        Collectors.counting())))
+                ;
+
+//        writer.printf("%-40s%n",m1);
+//        writer.printf("%-40s%-30s%n","Sandwich Bread Type","Count");
+        Map<String, Long> m2 = fileOrderList.stream()
+                .collect(Collectors.groupingBy(p -> p.getSandwich().getSandwichName(),Collectors.counting()));
+//        writer.printf("%-40s%n",m2);
+
+
+//        writer.printf("%-40s%-30s%n","Sandwich Name","Count");
+//        for (Map.Entry mapElement : m1.entrySet()) {
+//            String key = (String)mapElement.getKey();
+//            Map value = (Map) mapElement.getValue();
+//            for (Map.Entry mapElement1 : value.entrySet()) {
+//            writer.printf("%-40s%-30s%n",key,value); }
+        writer.println("-".repeat(50));
+        writer.printf("%-40s%-30s%n","Sandwich Name","Count");
+        writer.println("-".repeat(50));
+        for (Map.Entry mapElement : m2.entrySet()) {
+           String key = (String)mapElement.getKey();
+            Long value = (Long)mapElement.getValue();
+            writer.printf("%-40s%-30s%n",key,value); }
+        writer.println("-".repeat(50));
+        writer.printf("%-40s%-30s%n","Sandwich Name per Bread Type","Count");
+        writer.println("-".repeat(50));
+            writer.printf("%-40s%n",m1);
+
+        writer.close();
+    }
+
+//    public double totalPricePerMonth (LocalDate date) {
+//        Double [] foundCount  = fileOrderList.stream()
+//                .filter(o->o.getOrderDate().getMonthValue() == date.getMonthValue())
+//                .map(o-> o.getSandwich().getSandwichPrice())
+//                .toArray()
+//                .;
+//
+//
+//                ;
+//
+//    }
+
+}
+
+
+
 
 

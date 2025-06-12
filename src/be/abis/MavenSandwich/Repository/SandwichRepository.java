@@ -9,7 +9,8 @@ public interface SandwichRepository {
     static String formatSandwich(Sandwich s){
         StringBuilder sb = new StringBuilder();
         sb.append(s.getSandwichName()).append(";").
-                append(s.getSandwichPrice());
+                append(s.getSandwichPrice()).append(";").
+                append(s.getSandwichType());
         return sb.toString();
     }
 }

@@ -19,8 +19,8 @@ public class TestOrders {
 
     public static void main(String[] args) throws IOException {
 
-        FileSandwichRepository sr = null;
         OrdersRepository or = null;
+        FileSandwichRepository sr = null;
         try {
              sr = new FileSandwichRepository();
 
@@ -33,7 +33,9 @@ public class TestOrders {
 
         //        Sandwich s1 = new Sandwich("Salade de crabe",true, SandwichBreadType.Brown);
         try {
+
             Order order1= new Order(p1,sr.findtSandwichFromAvailabeList("Salade de thon"));
+     //       order1.getSandwich().setSalade("");
             or.addOrder(order1);
         } catch (TooManyOrderedException  | SandwichNotFoundException e) {
             System.out.println(e.getMessage());
