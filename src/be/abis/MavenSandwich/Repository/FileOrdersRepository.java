@@ -2,7 +2,6 @@ package be.abis.MavenSandwich.Repository;
 
 import be.abis.MavenSandwich.Enum.Gender;
 import be.abis.MavenSandwich.Enum.SandwichBreadType;
-import be.abis.MavenSandwich.Exceptions.PersonNotFoundException;
 import be.abis.MavenSandwich.Exceptions.TooManyOrderedException;
 import be.abis.MavenSandwich.Models.Order;
 import be.abis.MavenSandwich.Models.Person;
@@ -16,21 +15,13 @@ import java.nio.file.StandardOpenOption;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
-
 
 public class FileOrdersRepository implements OrdersRepository{
 //C:\Users\Duser\IdeaProjects\Maven-Sandwich\src
     private List<Order> fileOrderList = new ArrayList<>();
+
     String fileLocation = "/temp/javaProject/allOrders.csv";
 
     public FileOrdersRepository() throws IOException {
@@ -39,6 +30,8 @@ public class FileOrdersRepository implements OrdersRepository{
 
     private List<Order> readOrderFile() throws FileNotFoundException {
         FileReader fr = new FileReader("/temp/javaProject/allOrders.csv");
+
+
         try (BufferedReader reader = new BufferedReader(fr)) {
             String currentLine = null;
             while ((currentLine = reader.readLine()) != null){
@@ -58,6 +51,7 @@ public class FileOrdersRepository implements OrdersRepository{
 
         String[] tokens = s.split(";");
         Sandwich sandwich = new Sandwich(tokens[5]);
+
         Person person = new Person(tokens[2],tokens[3]);
         if(tokens[4].equalsIgnoreCase("Male")){ person.setGender(Gender.MALE);} else {person.setGender(Gender.FEMALE);}
         if(tokens[6].equalsIgnoreCase("Yes")) {sandwich.setSalade(true); } else { sandwich.setSalade(false);}
@@ -65,15 +59,18 @@ public class FileOrdersRepository implements OrdersRepository{
         sandwich.setSandwichPrice(Double.parseDouble(tokens[8]));
 
         Order order = new Order(person,sandwich);
+
+//        Order order = new Order(new Person(tokens[2],tokens[3]),sandwich);
+
         order.setOrderNumber(Integer.parseInt(tokens[0]));
         order.setOrderDate(LocalDate.parse(tokens[1],fmt));
         return order;
     }
 
-
     @Override
     public void addOrder(Order order) throws TooManyOrderedException {
         // write to file
+
 
         long foundCount = fileOrderList.stream()
                 .filter(o->o.getPerson()!=null)
@@ -84,6 +81,8 @@ public class FileOrdersRepository implements OrdersRepository{
 
         if (foundCount > 1) throw new TooManyOrderedException("already 2 sandwich ordered for: "+ order.getPerson().getLastName() + " " + order.getPerson().getFirstName());
         else this.writeOrderFile(order);
+
+
 
 
     }
