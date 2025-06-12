@@ -36,7 +36,7 @@ public class FileSandwichRepository implements SandwichRepository {
     }
 
     private void readSandwichFile() throws FileNotFoundException {
-        FileReader fr = new FileReader("C:\\Users\\Duser\\IdeaProjects\\Maven Sandwiches\\src\\sandwichesavailable.csv");
+        FileReader fr = new FileReader("/temp/javaProject/sandwichesavailable.csv");
         try (BufferedReader reader = new BufferedReader(fr)) {
             String currentLine = null;
             while ((currentLine = reader.readLine()) != null) {
@@ -75,7 +75,7 @@ public class FileSandwichRepository implements SandwichRepository {
     public void addSandwichToAvailabeList(String sname , double price,String type) {
         Sandwich s = new Sandwich(sname,price,type);
         if (!sandwichesAvailable.contains(s)) {
-            Path path = Paths.get("C:\\Users\\Duser\\IdeaProjects\\Maven Sandwiches\\src\\sandwichesavailable.csv");
+            Path path = Paths.get("/temp/javaProject/sandwichesavailable.csv");
             try (BufferedWriter writer =
                          Files.newBufferedWriter(path, Charset.forName("UTF-8")
                                  , StandardOpenOption.APPEND)) {
@@ -92,7 +92,7 @@ public class FileSandwichRepository implements SandwichRepository {
         Sandwich sToRemove = findtSandwichFromAvailabeList(sname);
         sandwichesAvailable.remove(sToRemove);
         System.out.println(sandwichesAvailable);
-        Path path = Paths.get("C:\\Users\\Duser\\IdeaProjects\\Maven Sandwiches\\src\\sandwichesavailable.csv");
+        Path path = Paths.get("/temp/javaProject/sandwichesavailable.csv");
         try (BufferedWriter writer =
              Files.newBufferedWriter(path, Charset.forName("UTF-8")
                    , StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING)) {

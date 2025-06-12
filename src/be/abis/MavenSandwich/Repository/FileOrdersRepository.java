@@ -32,18 +32,21 @@ public class FileOrdersRepository implements OrdersRepository{
 //C:\Users\Duser\IdeaProjects\Maven-Sandwich\src
     private List<Order> fileOrderList = new ArrayList<>();
     String fileLocation = "/temp/javaProject/allOrders.csv";
-    public FileOrdersRepository() throws Exception {
+
+    public FileOrdersRepository() throws IOException {
         this.readOrderFile();
     }
 
-    private List<Order> readOrderFile() throws IOException {
+    private List<Order> readOrderFile() throws FileNotFoundException {
         FileReader fr = new FileReader("/temp/javaProject/allOrders.csv");
         try (BufferedReader reader = new BufferedReader(fr)) {
             String currentLine = null;
-            while ((currentLine = reader.readLine()) != null) {
+            while ((currentLine = reader.readLine()) != null){
                 fileOrderList.add(parseOrder(currentLine));
             }
             return fileOrderList;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -52,6 +55,7 @@ public class FileOrdersRepository implements OrdersRepository{
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy/M/d");
 
 //orderNumber;orderDate,lastname,firstname,gender,sandwich_name,isSalad,breadType,price
+
         String[] tokens = s.split(";");
         Sandwich sandwich = new Sandwich(tokens[5]);
         Person person = new Person(tokens[2],tokens[3]);
@@ -74,11 +78,11 @@ public class FileOrdersRepository implements OrdersRepository{
         long foundCount = fileOrderList.stream()
                 .filter(o->o.getPerson()!=null)
                 .filter(o->o.getOrderDate().equals(LocalDate.now()))
-                .filter(o->o.getPerson().getPersonNumber() == order.getPerson().getPersonNumber())
+                .filter(o->o.getPerson().getLastName().equalsIgnoreCase(order.getPerson().getLastName()) && o.getPerson().getFirstName().equalsIgnoreCase(order.getPerson().getFirstName()))
                 .count();
 
 
-        if (foundCount > 1) throw new TooManyOrderedException("already 2 ordered");
+        if (foundCount > 1) throw new TooManyOrderedException("already 2 ordered for: "+ order.getPerson().getLastName() + " " + order.getPerson().getFirstName());
         else this.writeOrderFile(order);
 
 

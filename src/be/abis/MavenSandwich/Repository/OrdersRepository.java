@@ -22,8 +22,8 @@ public interface OrdersRepository {
                 .append(o.getPerson().getFirstName()).append(";")
                 .append(o.getPerson().getGender()).append(";")
                 .append(o.getSandwich().getSandwichName()).append(";")
-                .append(o.getSandwich().getSandwichBreadType()).append(";")
                 .append(o.getSandwich().isSalade()?"yes":"no").append(";")
+                .append(o.getSandwich().getSandwichBreadType()).append(";")
                 .append(o.getSandwich().getSandwichPrice());
         System.out.println(sb);
       //          .append(o.getSandwich().get)

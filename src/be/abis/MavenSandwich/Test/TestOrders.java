@@ -2,46 +2,50 @@ package be.abis.MavenSandwich.Test;
 
 import be.abis.MavenSandwich.Enum.Gender;
 import be.abis.MavenSandwich.Enum.SandwichBreadType;
+import be.abis.MavenSandwich.Exceptions.SandwichNotFoundException;
+import be.abis.MavenSandwich.Exceptions.TooManyOrderedException;
 import be.abis.MavenSandwich.Models.Order;
 import be.abis.MavenSandwich.Models.Person;
 import be.abis.MavenSandwich.Models.Sandwich;
 import be.abis.MavenSandwich.Repository.FileOrdersRepository;
+import be.abis.MavenSandwich.Repository.FileSandwichRepository;
 import be.abis.MavenSandwich.Repository.MemoryOrdersRepository;
 import be.abis.MavenSandwich.Repository.OrdersRepository;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class TestOrders {
 
-    public static void main(String[] args) {
-        Person p1 = new Person("Kode","Harshad", Gender.MALE);
-        //replace sandwich creation objects by find sandwich
-        Sandwich s1 = new Sandwich("Salade de crabe",true, SandwichBreadType.Brown);
-        Order order1= new Order(p1,s1);
-        order1.printInfo();
-        System.out.println(OrdersRepository.formatOrder(order1));
+    public static void main(String[] args) throws IOException {
 
+        FileSandwichRepository sr = null;
         OrdersRepository or = null;
         try {
-            or = new FileOrdersRepository();
-            or.addOrder(order1);
-            or.addOrder(new Order(new Person("Tim","David",Gender.MALE),new Sandwich("Salade de poulet",false,SandwichBreadType.Brown)));
+             sr = new FileSandwichRepository();
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (FileNotFoundException e ) {
+            System.out.println(e.getMessage());;
         }
 
+        Person p1 = new Person("senthil","R", Gender.MALE);
+        or = new FileOrdersRepository();
 
-
-        System.out.println("\nAll orders:");
+        //        Sandwich s1 = new Sandwich("Salade de crabe",true, SandwichBreadType.Brown);
         try {
-            System.out.println(or.findAllOrders());
-            or.printTodayOrder();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            Order order1= new Order(p1,sr.findtSandwichFromAvailabeList("Salade de thon"));
+            or.addOrder(order1);
+        } catch (TooManyOrderedException  | SandwichNotFoundException e) {
+            System.out.println(e.getMessage());
         }
 
+              or.printTodayOrder();
 
-
-
-
+        try {
+            or.addOrder(new Order(new Person("Steve","Smith",Gender.MALE),new Sandwich("Salade de poulet",false,SandwichBreadType.Brown)));
+        } catch (TooManyOrderedException e) {
+            System.out.println(e.getMessage());;
+        }
+                  or.printTodayOrder();
     }
 }
